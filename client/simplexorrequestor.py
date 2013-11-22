@@ -140,7 +140,14 @@ class RandomXORRequestor:
     self.manifestdict = manifestdict
     self.privacythreshold = privacythreshold
     self.pollinginterval = pollinginterval
-
+    
+    print "-----mirrorinfolist---------------/n prasit"
+    print mirrorinfolist
+    print "-----blocklist---------------/nprasit"
+    print blocklist
+    print "-----manifestdict---------------/nprasit"
+    print manifestdict
+    
     if len(mirrorinfolist) < self.privacythreshold:
       raise InsufficientMirrors("Requested the use of "+str(self.privacythreshold)+" mirrors, but only "+str(len(mirrorinfolist))+" were available.")
 
@@ -161,9 +168,10 @@ class RandomXORRequestor:
   
       self.activemirrorinfolist.append(thisrequestinfo)
       
-
+    #print manifestdict['blockcount'] #prasit
     bitstringlength = uppirlib.compute_bitstring_length(manifestdict['blockcount'])
     # let's generate the bitstrings
+    
     for thisrequestinfo in self.activemirrorinfolist[:-1]:
 
       for block in blocklist:
@@ -179,7 +187,10 @@ class RandomXORRequestor:
         thisbitstring = simplexordatastore.do_xor(thisbitstring, requestinfo['blockbitstringlist'][blocknum])
    
       # ...and flip the appropriate bit for the block we want
+      
+      #print thisbitstring #prasit
       thisbitstring = uppirlib.flip_bitstring_bit(thisbitstring, blocklist[blocknum])
+      #print thisbitstring #prasit
       self.activemirrorinfolist[-1]['blockbitstringlist'].append(thisbitstring)
     
     # we're done setting up the bitstrings!

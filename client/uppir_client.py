@@ -89,7 +89,7 @@ def _request_helper(rxgobj):
   # Private helper to get requests.   Multiple threads will execute this...
 
   thisrequest = rxgobj.get_next_xorrequest()
-  
+  #print thisrequest
   # go until there are no more requests
   while thisrequest != ():
     mirrorip = thisrequest[0]['ip']
@@ -98,6 +98,9 @@ def _request_helper(rxgobj):
     try:
       # request the XOR block...
       xorblock = uppirlib.retrieve_xorblock_from_mirror(mirrorip, mirrorport, bitstring)
+      #print mirrorip
+      #print mirrorport
+      #print bitstring
 
     except Exception, e:
       if 'socked' in str(e):
@@ -150,6 +153,7 @@ def request_blocks_from_mirrors(requestedblocklist, manifestdict):
   # let's set up a requestor object...
   rxgobj = simplexorrequestor.RandomXORRequestor(mirrorinfolist, requestedblocklist, manifestdict, _commandlineoptions.numberofmirrors)
 
+
   # let's fire up the requested number of threads.   Our thread will also
   # participate
   # (-1 because of us!)
@@ -197,6 +201,7 @@ def request_files_from_mirrors(requestedfilelist, manifestdict):
   # let's figure out what blocks we need
   for filename in requestedfilelist:
     theseblocks = uppirlib.get_blocklist_for_file(filename, manifestdict)
+    #print "xxxxxxxxxxxx filename, theseblocks xxxxxxxx prasit"
     print filename, theseblocks
 
     # add the blocks we don't already know we need to request
@@ -213,6 +218,8 @@ def request_files_from_mirrors(requestedfilelist, manifestdict):
     filedata = uppirlib.extract_file_from_blockdict(filename, manifestdict, blockdict)  
 
     # let's check the hash
+    print "/////////////////////filedata//////////////////"
+    print filedata
     thisfilehash = uppirlib.find_hash(filedata, manifestdict['hashalgorithm'])
 
     for fileinfo in manifestdict['fileinfolist']:

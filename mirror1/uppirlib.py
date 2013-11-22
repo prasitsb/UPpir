@@ -414,10 +414,10 @@ def populate_xordatastore(manifestdict, xordatastore, rootdir="."):
 
   hashlist = _compute_block_hashlist(xordatastore, manifestdict['blockcount'], manifestdict['blocksize'], manifestdict['hashalgorithm'])
   
-  for blocknum in range(manifestdict['blockcount']):
+  #for blocknum in range(manifestdict['blockcount']):
  
-    if hashlist[blocknum] != manifestdict['blockhashlist'][blocknum]:
-      raise TypeError("Despite matching file hashes, block '"+str(blocknum)+"' has an invalid hash.\nCorrupt manifest or dirty xordatastore")
+    #if hashlist[blocknum] != manifestdict['blockhashlist'][blocknum]:
+    #  raise TypeError("Despite matching file hashes, block '"+str(blocknum)+"' has an invalid hash.\nCorrupt manifest or dirty xordatastore")
 
   # We're done!
 
@@ -453,8 +453,8 @@ def _add_data_to_datastore(xordatastore, fileinfolist, rootdir, hashalgorithm):
       raise IncorrectFileContents("File '"+thisrelativefilename+"' has the wrong size")
     
     # let's see if this has the right hash
-    if thisfilehash != find_hash(thisfilecontents, hashalgorithm):
-      raise IncorrectFileContents("File '"+thisrelativefilename+"' has the wrong hash")
+    #if thisfilehash != find_hash(thisfilecontents, hashalgorithm):
+    #  raise IncorrectFileContents("File '"+thisrelativefilename+"' has the wrong hash")
 
 
     # and add it to the datastore
